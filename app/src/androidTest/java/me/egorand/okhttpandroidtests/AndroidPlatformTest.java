@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.okhttp3;
+package me.egorand.okhttpandroidtests;
 
 import okhttp3.internal.platform.Platform;
 import org.junit.Test;
