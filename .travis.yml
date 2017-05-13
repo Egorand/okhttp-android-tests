@@ -5,6 +5,7 @@ android:
     - tools
     - platform-tools
     - build-tools-25.0.2
+    - android-23
     - android-25
     - extra-android-m2repository
     - sys-img-x86-android-23
@@ -14,7 +15,7 @@ jdk:
   - oraclejdk8
 
 before_script:
-  # Create and start an emulator for instrumentation tests.
+  # Create and start an API 23 emulator for instrumentation tests.
   - echo no | android create avd --force -n test -t android-23 --abi x86
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
