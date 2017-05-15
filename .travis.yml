@@ -1,0 +1,55 @@
+language: android
+jdk: oraclejdk8
+sudo: required
+
+android:
+  components: # Cookbooks version: https://github.com/travis-ci/travis-cookbooks/tree/9c6cd11
+    - tools # Update preinstalled tools from revision 24.0.2 to 24.4.1
+    - build-tools-25.0.2 # Match build-tools version used in build.gradle
+    - platform-tools # Update platform-tools to revision 25.0.3+
+    - tools # Update tools from revision 24.4.1 to 25.2.5
+
+env:
+  global:
+    - API_1=23 # Android API level 23
+    - API_2=25 # Android API level 25
+    - TAG=google_apis # Google APIs by default, alternatively use default
+    - ABI=armeabi-v7a # ARM ABI v7a by default
+    - QEMU_AUDIO_DRV=none # Disable emulator audio to avoid warning
+    - ANDROID_HOME=/usr/local/android-sdk-24.0.2 # Depends on the cookbooks version used in the VM
+    - TOOLS=${ANDROID_HOME}/tools # PATH order matters, exists more than one emulator script
+    - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
+    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+
+before_install:
+  - export EMULATOR_1="system-images;android-${API_1};${TAG};${ABI}" # Used to install/create emulator
+  - export EMULATOR_2="system-images;android-${API_2};${TAG};${ABI}" # Used to install/create emulator
+  - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
+
+install:
+  # List and delete unnecessary components to free space
+  - sdkmanager --list || true
+  - sdkmanager --uninstall "system-images;android-15;default;armeabi-v7a"
+
+  # Update sdk tools to latest version and install/update components
+  - echo yes | sdkmanager "tools"
+  - echo yes | sdkmanager "platforms;android-25" # Latest platform required by SDK tools
+  - echo yes | sdkmanager "platforms;android-${API_1}" # Android platform required by emulator
+  - echo yes | sdkmanager "platforms;android-${API_2}" # Android platform required by emulator
+  - echo yes | sdkmanager "extras;android;m2repository"
+  - echo yes | sdkmanager "$EMULATOR_1" # Install emulator system image
+  - echo yes | sdkmanager "$EMULATOR_2" # Install emulator system image
+  # Create and start emulator
+  - echo no | avdmanager create avd -n acib1 -k "$EMULATOR_1" -f --abi "$ABI" --tag "$TAG"
+  - emulator -avd acib1 -engine classic -no-window -verbose -qemu -m 512 &
+  - sh build_scripts/wait-for-emulator-5554.sh
+  # Create and start emulator
+  - echo no | avdmanager create avd -n acib2 -k "$EMULATOR_2" -f --abi "$ABI" --tag "$TAG"
+  - emulator -avd acib2 -engine classic -no-window -verbose -qemu -m 512 &
+  - sh build_scripts/wait-for-emulator-5556.sh
+
+script:
+  - ./gradlew build spoonDebugAndroidTest
+
+after_script:
+  - cat ${TRAVIS_BUILD_DIR}/*/build/spoon/debug/junit-reports/*

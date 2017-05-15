@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'spoon'
 
 android {
   compileSdkVersion 25
