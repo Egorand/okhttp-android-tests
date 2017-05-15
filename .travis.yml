@@ -52,4 +52,4 @@ script:
   - ./gradlew build spoonDebugAndroidTest
 
 after_script:
-  - cat ${TRAVIS_BUILD_DIR}/*/build/spoon/debug/junit-reports/*
+  - cat ${TRAVIS_BUILD_DIR}/*/build/spoon/debug/result.json
