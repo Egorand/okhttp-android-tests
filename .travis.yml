@@ -44,7 +44,7 @@ before_script:
   - android-wait-for-emulator
 
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew build spoonDebugAndroidTest
 
 after_script:
   - cat ${TRAVIS_BUILD_DIR}/*/build/outputs/androidTest-results/connected/*
