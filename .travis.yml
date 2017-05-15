@@ -42,13 +42,11 @@ install:
   # Create and start emulator
   - echo no | avdmanager create avd -n acib1 -k "$EMULATOR_1" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib1 -engine classic -no-window -verbose -qemu -m 512 &
+  - sh build_scripts/wait-for-emulator-5554.sh
   # Create and start emulator
   - echo no | avdmanager create avd -n acib2 -k "$EMULATOR_2" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib2 -engine classic -no-window -verbose -qemu -m 512 &
-
-before_script:
-  # Wait for emulator fully-booted
-  - android-wait-for-emulator
+  - sh build_scripts/wait-for-emulator-5556.sh
 
 script:
   - ./gradlew build spoonDebugAndroidTest
