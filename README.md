@@ -1,6 +1,8 @@
 okhttp-android-tests
 ====================
 
+[![Build Status](https://travis-ci.org/Egorand/okhttp-android-tests.svg?branch=master)](https://travis-ci.org/Egorand/okhttp-android-tests)
+
 Set of Android instrumentation tests for [OkHttp](https://github.com/square/okhttp).
 
 #### Tests
