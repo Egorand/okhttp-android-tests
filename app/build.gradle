@@ -19,7 +19,7 @@ apply plugin: 'spoon'
 
 android {
   compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+  buildToolsVersion "25.0.3"
   defaultConfig {
     applicationId "me.egorand.okhttpandroidtests"
     minSdkVersion 21
@@ -36,5 +36,5 @@ android {
 dependencies {
   compile 'com.squareup.okhttp3:okhttp:3.9.0-SNAPSHOT'
   androidTestCompile 'junit:junit:4.12'
-  androidTestCompile 'com.android.support.test:runner:0.5'
+  androidTestCompile 'com.android.support.test:runner:1.0.0'
 }
