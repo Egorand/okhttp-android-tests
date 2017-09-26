@@ -16,14 +16,19 @@
 
 package me.egorand.okhttpandroidtests;
 
+import android.os.Build;
 import okhttp3.internal.platform.Platform;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assume.assumeTrue;
 
 public class AndroidPlatformTest {
 
   @Test public void shouldCheckIfCleartextIsEnabled() {
+    // only run on API 23 and higher
+    assumeTrue(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
+
     assertFalse(Platform.get().isCleartextTrafficPermitted("squareup.com"));
   }
 }
