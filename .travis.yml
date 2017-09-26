@@ -14,7 +14,7 @@ env:
     - API_1=23 # Android API level 23
     - API_2=25 # Android API level 25
     - TAG=google_apis # Google APIs by default, alternatively use default
-    - ABI=x86 # ARM ABI v7a by default
+    - ABI=armeabi-v7a # ARM ABI v7a by default
     - QEMU_AUDIO_DRV=none # Disable emulator audio to avoid warning
     - ANDROID_HOME=/usr/local/android-sdk-24.0.2 # Depends on the cookbooks version used in the VM
     - TOOLS=${ANDROID_HOME}/tools # PATH order matters, exists more than one emulator script
