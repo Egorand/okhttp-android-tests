@@ -16,14 +16,12 @@ env:
     - TAG=google_apis # Google APIs by default, alternatively use default
     - ABI=armeabi-v7a # ARM ABI v7a by default
     - QEMU_AUDIO_DRV=none # Disable emulator audio to avoid warning
-    - ANDROID_HOME=/usr/local/android-sdk-24.0.2 # Depends on the cookbooks version used in the VM
+    - ANDROID_HOME=/usr/local/android-sdk
     - TOOLS=${ANDROID_HOME}/tools # PATH order matters, exists more than one emulator script
     - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
     - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
 
 before_install:
-  - cd /usr/local
-  - ls -la
   - export EMULATOR_1="system-images;android-${API_1};${TAG};${ABI}" # Used to install/create emulator
   - export EMULATOR_2="system-images;android-${API_2};${TAG};${ABI}" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
