@@ -44,7 +44,7 @@ install:
   - adb -s emulator-5556 shell input keyevent 82 &
 
 script:
-  - ./gradlew build spoonDebugAndroidTest
+  - ./gradlew build spoonDebugAndroidTest -d -s
 
 after_script:
   - cat ${TRAVIS_BUILD_DIR}/*/build/spoon/debug/result.json
