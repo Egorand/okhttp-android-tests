@@ -28,13 +28,13 @@ before_install:
 
 install:
   # Update sdk tools to latest version and install/update components
-  - sdkmanager "tools"
-  - sdkmanager "platforms;android-26" # Latest platform required by SDK tools
-  - sdkmanager "platforms;android-${API_1}" # Android platform required by emulator
-  - sdkmanager "platforms;android-${API_2}" # Android platform required by emulator
-  - sdkmanager "extras;android;m2repository"
-  - sdkmanager "$EMULATOR_1" # Install emulator system image
-  - sdkmanager "$EMULATOR_2" # Install emulator system image
+  - echo yes | sdkmanager "tools"
+  - echo yes | sdkmanager "platforms;android-26" # Latest platform required by SDK tools
+  - echo yes | sdkmanager "platforms;android-${API_1}" # Android platform required by emulator
+  - echo yes | sdkmanager "platforms;android-${API_2}" # Android platform required by emulator
+  - echo yes | sdkmanager "extras;android;m2repository"
+  - echo yes | sdkmanager "$EMULATOR_1" # Install emulator system image
+  - echo yes | sdkmanager "$EMULATOR_2" # Install emulator system image
   # Create and start emulator
   - echo no | avdmanager create avd -n acib1 -k "$EMULATOR_1" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib1 -engine classic -no-window -verbose -qemu -m 512 &
