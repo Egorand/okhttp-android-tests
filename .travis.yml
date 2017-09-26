@@ -36,11 +36,11 @@ install:
   - echo yes | sdkmanager "$EMULATOR_2" # Install emulator system image
   # Create and start emulator
   - echo no | avdmanager create avd -n acib1 -k "$EMULATOR_1" -f --abi "$ABI" --tag "$TAG"
-  - emulator -avd acib1 -engine classic -no-window -verbose -qemu -m 512 &
+  - emulator -avd acib1 -no-audio -no-window &
   - sh build_scripts/wait-for-emulator-5554.sh
   # Create and start emulator
   - echo no | avdmanager create avd -n acib2 -k "$EMULATOR_2" -f --abi "$ABI" --tag "$TAG"
-  - emulator -avd acib2 -engine classic -no-window -verbose -qemu -m 512 &
+  - emulator -avd acib2 -no-audio -no-window &
   - sh build_scripts/wait-for-emulator-5556.sh
 
 script:
