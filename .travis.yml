@@ -43,6 +43,9 @@ install:
   - adb -s emulator-5554 shell input keyevent 82 &
   - adb -s emulator-5556 shell input keyevent 82 &
 
+before_script:
+  - mkdir -p ~/.gradle && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties # Disable Gradle daemon
+
 script:
   - ./gradlew build spoonDebugAndroidTest -d -s
 
